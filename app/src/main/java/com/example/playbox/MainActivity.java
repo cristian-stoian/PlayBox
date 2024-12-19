@@ -155,8 +155,64 @@ public class MainActivity extends AppCompatActivity {
             }
         moveDownDiamonds();
         }
+    private void checkRowForFour() {
+        for (int i = 0; i < 61; i++) { // Ultimele 3 poziții nu pot avea match de 4
+            int chosenDiamond = (int) diamond.get(i).getTag();
+            boolean isBlank = chosenDiamond == notDiamond;
 
-        private void moveDownDiamonds() {
+            Integer[] notValid = {5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55}; // Ultimele 3 poziții din fiecare rând
+            List<Integer> list = Arrays.asList(notValid);
+
+            if (!list.contains(i)) {
+                int x = i;
+                if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
+                        (int) diamond.get(x++).getTag() == chosenDiamond &&
+                        (int) diamond.get(x++).getTag() == chosenDiamond &&
+                        (int) diamond.get(x).getTag() == chosenDiamond) {
+
+                    // Adaugă la scor
+                    score += 4;
+                    scoreResult.setText(String.valueOf(score));
+
+                    // Elimină diamantele
+                    for (int j = 0; j < 4; j++) {
+                        x--;
+                        diamond.get(x).setImageResource(notDiamond);
+                        diamond.get(x).setTag(notDiamond);
+                    }
+                }
+            }
+        }
+        moveDownDiamonds();
+    }
+    private void checkColumnForFour() {
+        for (int i = 0; i < 40; i++) { // Ultimele 3 rânduri nu pot avea match de 4
+            int chosenDiamond = (int) diamond.get(i).getTag();
+            boolean isBlank = chosenDiamond == notDiamond;
+
+            if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
+                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
+                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond &&
+                    (int) diamond.get(i + 3 * noOfBlocks).getTag() == chosenDiamond) {
+
+                // Adaugă la scor
+                score += 4;
+                scoreResult.setText(String.valueOf(score));
+
+                // Elimină diamantele
+                for (int j = 0; j < 4; j++) {
+                    int index = i + j * noOfBlocks;
+                    diamond.get(index).setImageResource(notDiamond);
+                    diamond.get(index).setTag(notDiamond);
+                }
+            }
+        }
+        moveDownDiamonds();
+    }
+
+
+
+    private void moveDownDiamonds() {
             Integer[] firstRow = {0, 1, 2, 3, 4, 5, 6, 7};
             List<Integer> list = Arrays.asList(firstRow);
 
@@ -184,164 +240,6 @@ public class MainActivity extends AppCompatActivity {
             }
         }
 
-    private void checkRowForFour() {
-        for (int i = 0; i < 61; i++) { // Ajustăm limita pentru a evita ieșirea din listă
-            int chosenDiamond = (int) diamond.get(i).getTag();
-            boolean isBlank = chosenDiamond == notDiamond;
-            Integer[] notValid = {5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55};
-            List<Integer> list = Arrays.asList(notValid);
-
-            if (!list.contains(i)) {
-                int x = i;
-
-                // Verificare potrivire de 4
-                if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x).getTag() == chosenDiamond) {
-
-                    score += 4; // Adăugăm punctaj pentru 4
-                    scoreResult.setText(String.valueOf(score));
-
-                    // Eliminăm cele 4 diamante
-                    for (int j = 0; j < 4; j++) {
-                        diamond.get(x--).setImageResource(notDiamond);
-                        diamond.get(x + 1).setTag(notDiamond);
-                    }
-                }
-                // Verificare potrivire de 3 (fallback)
-                else if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x).getTag() == chosenDiamond) {
-
-                    score += 3;
-                    scoreResult.setText(String.valueOf(score));
-
-                    for (int j = 0; j < 3; j++) {
-                        diamond.get(x--).setImageResource(notDiamond);
-                        diamond.get(x + 1).setTag(notDiamond);
-                    }
-                }
-            }
-        }
-        moveDownDiamonds();
-    }
-
-    private void checkColumnForFour() {
-        for (int i = 0; i < 40; i++) { // Ajustăm limita pentru a evita ieșirea din listă
-            int chosenDiamond = (int) diamond.get(i).getTag();
-            boolean isBlank = chosenDiamond == notDiamond;
-
-            if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
-                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 3 * noOfBlocks).getTag() == chosenDiamond) {
-
-                score += 4; // Adăugăm punctaj pentru 4
-                scoreResult.setText(String.valueOf(score));
-
-                for (int j = 0; j < 4; j++) {
-                    diamond.get(i + j * noOfBlocks).setImageResource(notDiamond);
-                    diamond.get(i + j * noOfBlocks).setTag(notDiamond);
-                }
-            }
-            // Verificare potrivire de 3 (fallback)
-            else if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
-                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond) {
-
-                score += 3;
-                scoreResult.setText(String.valueOf(score));
-
-                for (int j = 0; j < 3; j++) {
-                    diamond.get(i + j * noOfBlocks).setImageResource(notDiamond);
-                    diamond.get(i + j * noOfBlocks).setTag(notDiamond);
-                }
-            }
-        }
-        moveDownDiamonds();
-    }
-    private void checkRowForMatches() {
-        for (int i = 0; i < 61; i++) { // Ajustăm limita pentru a evita ieșirea din listă
-            int chosenDiamond = (int) diamond.get(i).getTag();
-            boolean isBlank = chosenDiamond == notDiamond;
-            Integer[] notValid = {5, 6, 7, 13, 14, 15, 21, 22, 23, 29, 30, 31, 37, 38, 39, 45, 46, 47, 53, 54, 55};
-            List<Integer> list = Arrays.asList(notValid);
-
-            if (!list.contains(i)) {
-                int x = i;
-
-                // Verificare potrivire de 4
-                if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x).getTag() == chosenDiamond) {
-
-                    score += 4; // Adăugăm punctaj pentru 4
-                    scoreResult.setText(String.valueOf(score));
-
-                    // Eliminăm cele 4 diamante
-                    for (int j = 0; j < 4; j++) {
-                        diamond.get(x--).setImageResource(notDiamond);
-                        diamond.get(x + 1).setTag(notDiamond);
-                    }
-                }
-                // Verificare potrivire de 3 (fallback)
-                else if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x).getTag() == chosenDiamond) {
-
-                    score += 3;
-                    scoreResult.setText(String.valueOf(score));
-
-                    for (int j = 0; j < 3; j++) {
-                        diamond.get(x--).setImageResource(notDiamond);
-                        diamond.get(x + 1).setTag(notDiamond);
-                    }
-                }
-            }
-        }
-        moveDownDiamonds();
-    }
-
-    private void checkColumnForMatches() {
-        for (int i = 0; i < 40; i++) { // Ajustăm limita pentru a evita ieșirea din listă
-            int chosenDiamond = (int) diamond.get(i).getTag();
-            boolean isBlank = chosenDiamond == notDiamond;
-
-            if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
-                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 3 * noOfBlocks).getTag() == chosenDiamond) {
-
-                score += 4; // Adăugăm punctaj pentru 4
-                scoreResult.setText(String.valueOf(score));
-
-                for (int j = 0; j < 4; j++) {
-                    diamond.get(i + j * noOfBlocks).setImageResource(notDiamond);
-                    diamond.get(i + j * noOfBlocks).setTag(notDiamond);
-                }
-            }
-            // Verificare potrivire de 3 (fallback)
-            else if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
-                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
-                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond) {
-
-                score += 3;
-                scoreResult.setText(String.valueOf(score));
-
-                for (int j = 0; j < 3; j++) {
-                    diamond.get(i + j * noOfBlocks).setImageResource(notDiamond);
-                    diamond.get(i + j * noOfBlocks).setTag(notDiamond);
-                }
-            }
-        }
-        moveDownDiamonds();
-    }
-
-
-
-
 
     Runnable repeatChecker = new Runnable() {
         @Override
@@ -349,6 +247,8 @@ public class MainActivity extends AppCompatActivity {
             try {
                 checkRowForFour();
                 checkColumnForFour();
+                checkRowForThree();
+                checkColumnForThree();
                 moveDownDiamonds();
             }
             finally {
@@ -361,16 +261,35 @@ public class MainActivity extends AppCompatActivity {
         repeatChecker.run();
     }
 
-    private void diamondInterchange(){
-        int background =(int) diamond.get(diamondToBeReplaced).getTag();
-        int background1 =(int) diamond.get(diamondToBeDragged).getTag();
-        diamond.get(diamondToBeDragged).setImageResource(background);
-        diamond.get(diamondToBeReplaced).setImageResource(background1);
-        diamond.get(diamondToBeDragged).setTag(background);
-        diamond.get(diamondToBeReplaced).setTag(background1);
-        Log.d("IndexDebug", "Dragged index: " + diamondToBeDragged + ", Replaced index: " + diamondToBeReplaced);
+    private void diamondInterchange() {
+        // Salvează starea inițială
+        int initialScore = score;
+        int draggedBackground = (int) diamond.get(diamondToBeDragged).getTag();
+        int replacedBackground = (int) diamond.get(diamondToBeReplaced).getTag();
 
+        // Efectuează schimbul
+        diamond.get(diamondToBeDragged).setImageResource(replacedBackground);
+        diamond.get(diamondToBeReplaced).setImageResource(draggedBackground);
+        diamond.get(diamondToBeDragged).setTag(replacedBackground);
+        diamond.get(diamondToBeReplaced).setTag(draggedBackground);
+
+        Log.d("Swap", "Diamonds swapped: Dragged=" + diamondToBeDragged + ", Replaced=" + diamondToBeReplaced);
+
+        // Verifică dacă scorul s-a schimbat după un interval scurt
+        new Handler().postDelayed(() -> {
+            if (score == initialScore) {
+                // Revert schimbul
+                diamond.get(diamondToBeDragged).setImageResource(draggedBackground);
+                diamond.get(diamondToBeReplaced).setImageResource(replacedBackground);
+                diamond.get(diamondToBeDragged).setTag(draggedBackground);
+                diamond.get(diamondToBeReplaced).setTag(replacedBackground);
+                Log.d("SwapRevert", "Swap reverted due to no score change.");
+            } else {
+                Log.d("SwapSuccess", "Swap successful, score increased.");
+            }
+        }, 200); // Așteaptă 200ms pentru verificare
     }
+
 
     private void createBoard() {
         GridLayout gridLayout = findViewById(R.id.board);
@@ -385,7 +304,7 @@ public class MainActivity extends AppCompatActivity {
                     ViewGroup.LayoutParams(widthOfBlock, widthOfBlock));
             imageView.setMaxHeight(widthOfBlock);
             imageView.setMaxWidth(widthOfBlock);
-            int randomDiamond = (int) Math.floor(Math.random() * diamonds.length); //generate random value from diamond array
+            int randomDiamond = (int) Math.floor(Math.random() * diamonds.length);
             imageView.setImageResource(diamonds[randomDiamond]);
             imageView.setTag(diamonds[randomDiamond]);
             diamond.add(imageView);
@@ -393,19 +312,4 @@ public class MainActivity extends AppCompatActivity {
 
         }
     }
-    private void animateDiamondMovement(View diamond, float startX, float startY, float endX, float endY) {
-        // Creează animația pe axa X
-        ObjectAnimator animatorX = ObjectAnimator.ofFloat(diamond, "x", startX, endX);
-        animatorX.setDuration(300); // Durata animației, în milisecunde
-
-        // Creează animația pe axa Y
-        ObjectAnimator animatorY = ObjectAnimator.ofFloat(diamond, "y", startY, endY);
-        animatorY.setDuration(300);
-
-        // Rulează animațiile împreună
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(animatorX, animatorY);
-        animatorSet.start();
-    }
-
 }
