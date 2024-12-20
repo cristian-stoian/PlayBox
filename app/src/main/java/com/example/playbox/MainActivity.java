@@ -98,8 +98,6 @@ public class MainActivity extends AppCompatActivity {
         startRepeat();
     }
 
-
-
     private void checkRowForThree(){
         for (int i=0; i<62;i++){
             int chosedDiamond = (int) diamond.get(i).getTag();
@@ -129,7 +127,6 @@ public class MainActivity extends AppCompatActivity {
         }
         moveDownDiamonds();
     }
-
     private void checkColumnForThree(){
         for (int i=0; i<47;i++){
             int chosedDiamond = (int) diamond.get(i).getTag();
@@ -164,21 +161,20 @@ public class MainActivity extends AppCompatActivity {
             List<Integer> list = Arrays.asList(notValid);
 
             if (!list.contains(i)) {
-                int x = i;
-                if ((int) diamond.get(x++).getTag() == chosenDiamond && !isBlank &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x++).getTag() == chosenDiamond &&
-                        (int) diamond.get(x).getTag() == chosenDiamond) {
+                if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
+                        (int) diamond.get(i + 1).getTag() == chosenDiamond &&
+                        (int) diamond.get(i + 2).getTag() == chosenDiamond &&
+                        (int) diamond.get(i + 3).getTag() == chosenDiamond) {
 
                     // Adaugă la scor
                     score += 4;
                     scoreResult.setText(String.valueOf(score));
 
-                    // Elimină diamantele
+                    // Elimină toate cele 4 diamante
                     for (int j = 0; j < 4; j++) {
-                        x--;
-                        diamond.get(x).setImageResource(notDiamond);
-                        diamond.get(x).setTag(notDiamond);
+                        int index = i + j;
+                        diamond.get(index).setImageResource(notDiamond);
+                        diamond.get(index).setTag(notDiamond);
                     }
                 }
             }
@@ -209,6 +205,63 @@ public class MainActivity extends AppCompatActivity {
         }
         moveDownDiamonds();
     }
+    private void checkRowForFive() {
+        for (int i = 0; i < 60; i++) { // Ultimele 4 poziții nu pot avea match de 5
+            int chosenDiamond = (int) diamond.get(i).getTag();
+            boolean isBlank = chosenDiamond == notDiamond;
+
+            Integer[] notValid = {4, 5, 6, 7, 12, 13, 14, 15, 20, 21, 22, 23, 28, 29, 30, 31, 36, 37, 38, 39, 44, 45, 46, 47, 52, 53, 54, 55}; // Ultimele 4 poziții din fiecare rând
+            List<Integer> list = Arrays.asList(notValid);
+
+            if (!list.contains(i)) {
+                if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
+                        (int) diamond.get(i + 1).getTag() == chosenDiamond &&
+                        (int) diamond.get(i + 2).getTag() == chosenDiamond &&
+                        (int) diamond.get(i + 3).getTag() == chosenDiamond &&
+                        (int) diamond.get(i + 4).getTag() == chosenDiamond) {
+
+                    // Adaugă la scor
+                    score += 5;
+                    scoreResult.setText(String.valueOf(score));
+
+                    // Elimină toate cele 5 diamante
+                    for (int j = 0; j < 5; j++) {
+                        int index = i + j;
+                        diamond.get(index).setImageResource(notDiamond);
+                        diamond.get(index).setTag(notDiamond);
+                    }
+                }
+            }
+        }
+        moveDownDiamonds();
+    }
+    private void checkColumnForFive() {
+        for (int i = 0; i < 32; i++) { // Ultimele 4 rânduri nu pot avea match de 5
+            int chosenDiamond = (int) diamond.get(i).getTag();
+            boolean isBlank = chosenDiamond == notDiamond;
+
+            if ((int) diamond.get(i).getTag() == chosenDiamond && !isBlank &&
+                    (int) diamond.get(i + noOfBlocks).getTag() == chosenDiamond &&
+                    (int) diamond.get(i + 2 * noOfBlocks).getTag() == chosenDiamond &&
+                    (int) diamond.get(i + 3 * noOfBlocks).getTag() == chosenDiamond &&
+                    (int) diamond.get(i + 4 * noOfBlocks).getTag() == chosenDiamond) {
+
+                // Adaugă la scor
+                score += 5;
+                scoreResult.setText(String.valueOf(score));
+
+                // Elimină toate cele 5 diamante
+                for (int j = 0; j < 5; j++) {
+                    int index = i + j * noOfBlocks;
+                    diamond.get(index).setImageResource(notDiamond);
+                    diamond.get(index).setTag(notDiamond);
+                }
+            }
+        }
+        moveDownDiamonds();
+    }
+
+
 
 
 
@@ -245,6 +298,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
+                checkRowForFive();
+                checkColumnForFive();
                 checkRowForFour();
                 checkColumnForFour();
                 checkRowForThree();
