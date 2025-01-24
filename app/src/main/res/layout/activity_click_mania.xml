@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
+        android:text="10"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"/>
+
+    <ImageView
+        android:id="@+id/clickCircle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/circle_background"
+        android:clickable="true"
+        android:focusable="true"
+        android:layout_centerInParent="true"/>
+
+    <TextView
+        android:id="@+id/clickCountTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+        android:text="Clicks: 0"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
+        android:layout_marginTop="32dp"/>
+    <LinearLayout
+        android:id="@+id/endButtonsLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/timeTextView"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/homeButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Home" />
+
+        <Button
+            android:id="@+id/restartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restart"
+            android:layout_marginStart="16dp"/>
+    </LinearLayout>
+
+</RelativeLayout>

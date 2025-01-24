@@ -22,6 +22,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Match3" />
+        <activity android:name="._2048" />
+        <activity android:name=".ClickManiaActivity" />
     </application>
 
 </manifest>

@@ -1,9 +1,19 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Base.Theme.PlayBox" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
+    <style name="Theme.PlayBox" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Fundal general -->
+        <item name="android:windowBackground">#12130F</item>
+        <item name="android:colorBackground">#12130F</item>
 
-    <style name="Theme.PlayBox" parent="Base.Theme.PlayBox" />
+        <!-- Culori personalizate -->
+        <item name="colorPrimary">#1F1F1F</item>
+        <item name="colorPrimaryDark">#000000</item>
+        <item name="colorAccent">#FF6F00</item>
+
+        <!-- Text -->
+        <item name="android:textColor">#FFFFFF</item>
+
+        <!-- Eliminare ActionBar implicit -->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>

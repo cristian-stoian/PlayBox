@@ -11,17 +11,44 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main); // Asigură-te că folosești layout-ul corect
+        setContentView(R.layout.activity_main);
 
-        // Găsește butonul din layout
-        Button goToMatch3Button = findViewById(R.id.GoTo);
-
-        // Setează un listener pentru apăsarea butonului
-        goToMatch3Button.setOnClickListener(new View.OnClickListener() {
+        // Match-3 Button
+        Button match3Button = findViewById(R.id.btnMatch3);
+        match3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Creează un Intent pentru a porni Match3
                 Intent intent = new Intent(MainActivity.this, Match3.class);
+                startActivity(intent);
+            }
+        });
+
+        // 2048 Button
+        Button puzzleButton = findViewById(R.id._2048);
+        puzzleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, _2048.class);
+                startActivity(intent);
+            }
+        });
+
+        // Shooter Button
+        Button shooterButton = findViewById(R.id.clickMania);
+        shooterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ClickManiaActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        // Tower Defense Button
+        Button towerDefenseButton = findViewById(R.id.btnTowerDefense);
+        towerDefenseButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, _2048.class);
                 startActivity(intent);
             }
         });

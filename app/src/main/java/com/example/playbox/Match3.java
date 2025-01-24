@@ -3,6 +3,7 @@ package com.example.playbox;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.DisplayMetrics;
@@ -10,6 +11,7 @@ import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -41,6 +43,7 @@ public class Match3 extends AppCompatActivity {
     int interval = 100;
     TextView scoreResult;
     int score = 0;
+    private Button homeButton; // Adaugă o variabilă pentru butonul Home
 
     @SuppressLint("ClickableViewAccessibility")
     @Override
@@ -54,7 +57,16 @@ public class Match3 extends AppCompatActivity {
         int heightOfScreen = displayMetrics.heightPixels;
         widthOfBlock = widthOfScreen / noOfBlocks;
         createBoard();
-
+        homeButton = findViewById(R.id.homeButton); // Initializează butonul Home
+        homeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Creează un Intent pentru a porni MainActivity
+                Intent intent = new Intent(Match3.this, MainActivity.class);
+                startActivity(intent);
+                finish(); // Închide GameActivity pentru a nu se mai întoarce la el cu butonul Back
+            }
+        });
 
         for (ImageView imageView : diamond){
             imageView.setOnTouchListener(new OnSwipeListener(this){

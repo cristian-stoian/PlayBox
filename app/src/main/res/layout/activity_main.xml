@@ -3,31 +3,94 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#1D1E18"
+    tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/GoTo"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Match-3"
-        tools:layout_editor_absoluteX="65dp"
-        tools:layout_editor_absoluteY="213dp" />
+        android:text="GameHub"
+        android:textSize="36sp"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:gravity="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/gridLayout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="48dp" />
 
-    <LinearLayout
-        android:id="@+id/frameLayout"
-        android:layout_width="411dp"
-        android:layout_height="140dp"
-        android:background="#747474"
-        tools:layout_editor_absoluteY="1dp">
+    <GridLayout
+        android:id="@+id/gridLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:rowCount="2"
+        android:columnCount="2"
+        android:layout_margin="32dp"
+        app:layout_constraintTop_toBottomOf="@id/textView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
 
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="71dp"
-            android:text="Welcome, user"
-            android:textAlignment="center"
-            android:textSize="35dp" />
+        <Button
+            android:id="@+id/btnMatch3"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="16dp"
+            android:background="@drawable/square_button"
+            android:text="Match-3"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/_2048"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="16dp"
+            android:text="2048"
+            android:background="@drawable/square_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/clickMania"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="16dp"
+            android:text="Click Mania"
+            android:background="@drawable/square_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"/>
 
 
-    </LinearLayout>
+        <Button
+            android:id="@+id/btnTowerDefense"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_rowWeight="1"
+            android:layout_columnWeight="1"
+            android:layout_margin="16dp"
+            android:text="Tower Defense"
+            android:background="@drawable/square_button"
+            android:textColor="#FFFFFF"
+            android:textStyle="bold"
+            android:textSize="24sp"
+            android:gravity="center"/>
+
+    </GridLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
