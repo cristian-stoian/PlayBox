@@ -11,6 +11,7 @@
         android:id="@+id/textView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+<<<<<<< HEAD
         android:text="GameHub"
         android:textSize="36sp"
         android:textColor="#FFFFFF"
@@ -33,6 +34,26 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
+=======
+        android:layout_marginStart="65dp"
+        android:layout_marginBottom="470dp"
+        android:text="Match-3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/frameLayout" />
+
+    <LinearLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginBottom="72dp"
+        android:background="#747474"
+        app:layout_constraintBottom_toTopOf="@+id/GoTo"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+>>>>>>> 2f83f0fc5508a2edffabde1769a03cb39a1c9406
 
         <Button
             android:id="@+id/btnMatch3"
